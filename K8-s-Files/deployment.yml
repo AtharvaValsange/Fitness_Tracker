@@ -3,6 +3,7 @@ kind: Deployment
 
 metadata:
   name: atharva-deployment
+  namespace: atharva-ns
   labels:
     first: app
 
@@ -21,8 +22,15 @@ spec:
     spec:
       containers:
       - name: atharva-container
-
         image: atharva7823/fitnesstracker:v1
 
         ports:
         - containerPort: 5000
+
+        volumeMounts:
+        - name: app-storage
+          mountPath: /app/data
+
+      volumes:
+      - name: app-storage
+        emptyDir: {}
